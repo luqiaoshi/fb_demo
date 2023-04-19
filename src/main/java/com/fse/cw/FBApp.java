@@ -1,10 +1,11 @@
 package com.fse.cw;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.text.SimpleDateFormat;
+
 public class FBApp {
     public static ArrayList<FBGame> footBallGames;
     public static ArrayList<FBPlayer> footBallPlayers;
@@ -12,21 +13,21 @@ public class FBApp {
     public static void main(String[] args) {
         footBallGames = new ArrayList<FBGame>();
         footBallPlayers = new ArrayList<FBPlayer>();
-        footBallPlayers.add(new FBPlayer("Hawkeye", 20220101,"Male"));
-        footBallPlayers.add(new FBPlayer("Black Widow", 20220801,"Male"));
-        footBallPlayers.add(new FBPlayer("Iron Man", 20229756,"Male"));
-        footBallPlayers.add(new FBPlayer("Thor", 20228842,"Male"));
-        footBallPlayers.add(new FBPlayer("Captain America", 20220808,"Male"));
-        footBallPlayers.add(new FBPlayer("Batman", 20234477,"Male"));
-        footBallPlayers.add(new FBPlayer("Superman", 20239988,"Male"));
-        footBallPlayers.add(new FBPlayer("Wonder Woman", 20233378,"Male"));
-        footBallPlayers.add(new FBPlayer("Flash", 20231335,"Male"));
+        footBallPlayers.add(new FBPlayer("Hawkeye", 20220101, "Male"));
+        footBallPlayers.add(new FBPlayer("Black Widow", 20220801, "Male"));
+        footBallPlayers.add(new FBPlayer("Iron Man", 20229756, "Male"));
+        footBallPlayers.add(new FBPlayer("Thor", 20228842, "Male"));
+        footBallPlayers.add(new FBPlayer("Captain America", 20220808, "Male"));
+        footBallPlayers.add(new FBPlayer("Batman", 20234477, "Male"));
+        footBallPlayers.add(new FBPlayer("Superman", 20239988, "Male"));
+        footBallPlayers.add(new FBPlayer("Wonder Woman", 20233378, "Male"));
+        footBallPlayers.add(new FBPlayer("Flash", 20231335, "Male"));
         Date curDate = new Date();
-        FBGame fbGame = new FBGame(curDate,"outside football field",20);
+        FBGame fbGame = new FBGame(curDate, "outside football field", 20);
         footBallGames.add(fbGame);
         DisplayMainMenu();
         Scanner in = new Scanner(System.in);
-        while(in.hasNextLine()) {
+        while (in.hasNextLine()) {
             String choice = in.next();
             try {
                 if (choice.equals("D")) {
@@ -51,8 +52,8 @@ public class FBApp {
                     System.out.println("\nGoodbye!");
                     break;
                 }
-            } catch(Exception e) {
-                System.out.println("Something went wrong: " + e.toString() + "\n");
+            } catch (Exception e) {
+                System.out.println("Something went wrong: " + e + "\n");
             }
 
             DisplayMainMenu();
@@ -83,6 +84,7 @@ public class FBApp {
             footballGame.getGameInfo();
         }
     }
+
     public static void DisplayAllPlayers() {
         for (int j = 0; j < footBallPlayers.size(); j++) {
             FBPlayer footBallPlayer = footBallPlayers.get(j);
@@ -90,6 +92,7 @@ public class FBApp {
             System.out.println(footBallPlayer.toString());
         }
     }
+
     public static void SearchFootBallGame() {
         System.out.print("Enter Game Time: ");
         Scanner in = new Scanner(System.in);
@@ -102,17 +105,18 @@ public class FBApp {
                 Date gameTime = footballGame.getGameTime();
                 if (fmt.format(gTime).equals(fmt.format(gameTime))) {
                     footballGame.getGameInfo();
-                    games +=1;
+                    games += 1;
                 }
             }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        if (games > 0){
+        if (games > 0) {
             System.out.println("There is not any game at " + time);
         }
 
     }
+
     public static void SearchFootBallPlayers() {
         System.out.print("Enter Player Name: ");
         Scanner in = new Scanner(System.in);
@@ -122,16 +126,16 @@ public class FBApp {
         for (FBPlayer footballPlayer : footBallPlayers) {
             String personName = footballPlayer.getPersonName();
             if (personName.equals(name)) {
-                System.out.println(footballPlayer.toString());
+                System.out.println(footballPlayer);
             }
         }
-        if (names > 0){
+        if (names > 0) {
             System.out.println("There is nobody call " + name);
         }
 
     }
 
-    public static void AddGame(){
+    public static void AddGame() {
         Scanner in = new Scanner(System.in);
         System.out.print("\nEnter game time: (dd/MM/yyyy)");
         String time = in.nextLine();
@@ -145,7 +149,7 @@ public class FBApp {
         String venue = in.nextLine();
         System.out.print("Enter game max number of players: ");
         int maxPlayerNumber = in.nextInt();
-        FBGame footballGame = new FBGame(gameTime,venue,maxPlayerNumber);
+        FBGame footballGame = new FBGame(gameTime, venue, maxPlayerNumber);
         footBallGames.add(footballGame);
         System.out.println("Team created successfully.");
         footballGame.getGameInfo();
@@ -161,16 +165,16 @@ public class FBApp {
         int id = in.nextInt();
 
         System.out.println("----------");
-        FBPlayer fbPlayer = new FBPlayer(name,id,gender);
+        FBPlayer fbPlayer = new FBPlayer(name, id, gender);
         footBallPlayers.add(fbPlayer);
 
-        System.out.println("Football player created successfully: " + name +" id " + id + ".");
+        System.out.println("Football player created successfully: " + name + " id " + id + ".");
         System.out.println(" How many games to join?: ");
         int num = in.nextInt();
-        int gameId ;
-        for (int j = 0; j<= num -1; j++){
-            gameId= in.nextInt();
-            footBallGames.get(gameId-1).addPlayer(fbPlayer);
+        int gameId;
+        for (int j = 0; j <= num - 1; j++) {
+            gameId = in.nextInt();
+            footBallGames.get(gameId - 1).addPlayer(fbPlayer);
         }
         System.out.println("Player create successfully.");
 
@@ -182,7 +186,7 @@ public class FBApp {
         System.out.println("All games: ");
         for (int j = 0; j < footBallGames.size(); j++) {
             FBGame footBallGame = footBallGames.get(j);
-            System.out.println("Game " + (j + 1) + " [" + footBallGame.getGameTime() +" " + footBallGame.getGameVenue() + "]");
+            System.out.println("Game " + (j + 1) + " [" + footBallGame.getGameTime() + " " + footBallGame.getGameVenue() + "]");
         }
         System.out.println("----------");
 
@@ -204,6 +208,7 @@ public class FBApp {
         footBallGame.getGameTeam2().setTeamColor(color);
         System.out.println("Team color has changed successfully.");
     }
+
     public static void SetTeamMember() {
 
         System.out.println("All games: ");
@@ -229,11 +234,11 @@ public class FBApp {
         System.out.print("How many players in team1?: ");
         int memberNumber = in.nextInt() - 1;
         System.out.print("Which member to team1?: ");
-        for (int j = 0; j < memberNumber; j++){
+        for (int j = 0; j < memberNumber; j++) {
             int memberIndex = in.nextInt() - 1;
             footBallGame.getGameTeam1().addTeamMemberToList(footBallGame.getWaitList().getTeamList().get(memberIndex));
         }
-        for (int j = 0; j < footBallGame.getGameTeam1().getTeamList().size(); j++){
+        for (int j = 0; j < footBallGame.getGameTeam1().getTeamList().size(); j++) {
             footBallGame.getWaitList().removeTeamMemberFromList(footBallGame.getGameTeam1().getTeamList().get(j));
         }
 
@@ -242,16 +247,17 @@ public class FBApp {
         System.out.print("How many members to team2?: ");
         memberNumber = in.nextInt() - 1;
         System.out.print("Which member to team2?: ");
-        for (int j = 0; j < memberNumber; j++){
+        for (int j = 0; j < memberNumber; j++) {
             int memberIndex = in.nextInt() - 1;
             footBallGame.getGameTeam2().addTeamMemberToList(footBallGame.getWaitList().getTeamList().get(memberIndex));
         }
-        for (int j = 0; j < footBallGame.getGameTeam1().getTeamList().size(); j++){
+        for (int j = 0; j < footBallGame.getGameTeam1().getTeamList().size(); j++) {
             footBallGame.getWaitList().removeTeamMemberFromList(footBallGame.getGameTeam1().getTeamList().get(j));
         }
 
         System.out.println("Team member has changed successfully.");
     }
+
     public static void AddPlayersToGame() {
 
         System.out.println("All games: ");
@@ -272,7 +278,7 @@ public class FBApp {
         System.out.println("\n----------");
         System.out.print("How many players to add?: ");
         int num = in.nextInt();
-        for (int j = 0; j<= num -1;j++){
+        for (int j = 0; j <= num - 1; j++) {
             index = in.nextInt() - 1;
             footBallGame.addPlayer(footBallPlayers.get(index));
         }
