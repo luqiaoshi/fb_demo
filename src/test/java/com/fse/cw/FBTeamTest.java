@@ -75,4 +75,16 @@ public class FBTeamTest {
         Assert.assertEquals(1, teamList.size());
         Assert.assertEquals(RONALDO, teamList.get(0));
     }
+
+    @Test
+    public void testToString() {
+        // 当没有队员时的输出
+        String nonPlayer = fbTeam.toString();
+        Assert.assertEquals("Team Members: None", nonPlayer);
+        // 当存在队员时打印队员的信息
+        fbTeam.addTeamMemberToList(RONALDO);
+        fbTeam.addTeamMemberToList(MESSI);
+        String singlePlayer = fbTeam.toString();
+        Assert.assertEquals("Team Members: [0]: Ronaldo\n[1]: Messi\n", singlePlayer);
+    }
 }
